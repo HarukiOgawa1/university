@@ -1,0 +1,68 @@
+counter = [0] * 26
+sum = 0
+book = open('HEIDI.txt', 'r', encoding = 'UTF-8')
+datas = book.readlines()
+
+
+for data in datas:
+	counter[0] += data.count('a') + data.count('A')
+	counter[1] += data.count('b') + data.count('B')
+	counter[2] += data.count('c') + data.count('C')
+	counter[3] += data.count('d') + data.count('D')
+	counter[4] += data.count('e') + data.count('E')
+	counter[5] += data.count('f') + data.count('F')
+	counter[6] += data.count('g') + data.count('G')
+	counter[7] += data.count('h') + data.count('H')
+	counter[8] += data.count('i') + data.count('I')
+	counter[9] += data.count('j') + data.count('J')
+	counter[10] += data.count('k') + data.count('K')
+	counter[11] += data.count('l') + data.count('L')
+	counter[12] += data.count('m') + data.count('M')
+	counter[13] += data.count('n') + data.count('N')
+	counter[14] += data.count('o') + data.count('O')
+	counter[15] += data.count('p') + data.count('P')
+	counter[16] += data.count('q') + data.count('Q')
+	counter[17] += data.count('r') + data.count('R')
+	counter[18] += data.count('s') + data.count('S')
+	counter[19] += data.count('t') + data.count('T')
+	counter[20] += data.count('u') + data.count('U')
+	counter[21] += data.count('v') + data.count('V')
+	counter[22] += data.count('w') + data.count('W')
+	counter[23] += data.count('x') + data.count('X')
+	counter[24] += data.count('y') + data.count('Y')
+	counter[25] += data.count('z') + data.count('Z')
+	
+book.close()
+
+print("a =",counter[0])
+print("b =",counter[1])
+print("c =",counter[2])
+print("d =",counter[3])
+print("e =",counter[4])
+print("f =",counter[5])
+print("g =",counter[6])
+print("h =",counter[7])
+print("i =",counter[8])
+print("j =",counter[9])
+print("k =",counter[10])
+print("l =",counter[11])
+print("m =",counter[12])
+print("n =",counter[13])
+print("o =",counter[14])
+print("p =",counter[15])
+print("q =",counter[16])
+print("r =",counter[17])
+print("s =",counter[18])
+print("t =",counter[19])
+print("u =",counter[20])
+print("v =",counter[21])
+print("w =",counter[22])
+print("x =",counter[23])
+print("y =",counter[24])
+print("z =",counter[25])
+
+for i in counter:
+	sum += i
+
+print("合計文字数=",sum)
+
