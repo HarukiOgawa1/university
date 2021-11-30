@@ -1,3 +1,4 @@
+characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 counter = [0] * 26
 sum = 0
 book = open('HEIDI.txt', 'r', encoding = 'UTF-8')
@@ -35,37 +36,24 @@ for data in datas:
 book.close()
 
 f = open('output.txt', 'w', encoding= 'UTF-8')
-f.write("a =" + str(counter[0]) + "\n")
-f.write("b =" + str(counter[1]) + "\n")
-f.write("c =" + str(counter[2]) + "\n")
-f.write("d =" + str(counter[3]) + "\n")
-f.write("e =" + str(counter[4]) + "\n")
-f.write("f =" + str(counter[5]) + "\n")
-f.write("g =" + str(counter[6]) + "\n")
-f.write("h =" + str(counter[7]) + "\n")
-f.write("i =" + str(counter[8]) + "\n")
-f.write("j =" + str(counter[9]) + "\n")
-f.write("k =" + str(counter[10]) + "\n")
-f.write("l =" + str(counter[11]) + "\n")
-f.write("m =" + str(counter[12]) + "\n")
-f.write("n =" + str(counter[13]) + "\n")
-f.write("o =" + str(counter[14]) + "\n")
-f.write("p =" + str(counter[15]) + "\n")
-f.write("q =" + str(counter[16]) + "\n")
-f.write("r =" + str(counter[17]) + "\n")
-f.write("s =" + str(counter[18]) + "\n")
-f.write("t =" + str(counter[19]) + "\n")
-f.write("u =" + str(counter[20]) + "\n")
-f.write("v =" + str(counter[21]) + "\n")
-f.write("w =" + str(counter[22]) + "\n")
-f.write("x =" + str(counter[23]) + "\n")
-f.write("y =" + str(counter[24]) + "\n")
-f.write("z =" + str(counter[25]) + "\n")
+
+characters_list = ['sa']
+for i in characters:
+	sum += 1
+	#characters_list.append(str(counter[sum-1])+ ' : ' + i)
+	characters_list.append(str(counter[sum-1]))
+	print(counter[sum-1])
+
+print(characters_list)
+
+characters_list.sort()
+print(characters_list)
 
 for i in counter:
 	sum += i
 
 f.write("合計文字数=" + str(sum) + "\n")
+
 
 f.close()
 
