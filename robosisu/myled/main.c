@@ -37,7 +37,7 @@ static struct file_operations led_fops = {
 static int __init init_mod(void)
 {
 	int retval;
-	retval = alloc_chrdev_region(&dev, 0, 1, "myled");
+	retval = alloc_chrdev_region(&dev, 0, 1, "main");
 	if(retval < 0){
 		printk(KERN_ERR "alloc_chrdev_region failed.\n");
 		return retval;
@@ -50,14 +50,14 @@ static int __init init_mod(void)
 		printk(KERN_ERR "cdev_add failed. major:%d, minor:%d",MAJOR(dev),MINOR(dev));
 		return retval;
 	}
-	cls = class_create(THIS_MODULE,"myled");
+	cls = class_create(THIS_MODULE,"main");
 	if(IS_ERR(cls)){
 		printk(KERN_ERR "class_create failed.");
 		return PTR_ERR(cls);
 	}
-	device_create(cls, NULL, dev, NULL, "myled%d",MINOR(dev));
+	device_create(cls, NULL, dev, NULL, "main%d",MINOR(dev));
 	
-	gpio_base = ioremap_nocache(0x3f2000000, 0xA0);
+	gpio_base = ioremap_nocache(0xfe200000, 0xA0);
 	
 	const u32 led = 25;
 	const u32 index = led/10;

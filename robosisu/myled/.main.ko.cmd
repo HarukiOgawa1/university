@@ -1,0 +1,1 @@
+cmd_/home/ubuntu/university/robosisu/myled/main.ko := ld -r  -EL  -maarch64elf  --build-id  -T ./scripts/module-common.lds -T ./arch/arm64/kernel/module.lds -o /home/ubuntu/university/robosisu/myled/main.ko /home/ubuntu/university/robosisu/myled/main.o /home/ubuntu/university/robosisu/myled/main.mod.o;  true
