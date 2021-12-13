@@ -39,9 +39,10 @@ __used __section(__versions) = {
 	{ 0xe3ec2f2b, "alloc_chrdev_region" },
 	{ 0xdecd0b29, "__stack_chk_fail" },
 	{ 0xd697e69a, "trace_hardirqs_on" },
+	{ 0xf9a482f9, "msleep" },
 	{ 0x12a4e128, "__arch_copy_from_user" },
-	{ 0xec3d2e1b, "trace_hardirqs_off" },
 	{ 0x3d8560e4, "cpu_hwcaps" },
+	{ 0xec3d2e1b, "trace_hardirqs_off" },
 	{ 0x4b50cb71, "cpu_hwcap_keys" },
 	{ 0x14b89635, "arm64_const_caps_ready" },
 	{ 0x1fdc7df2, "_mcount" },
@@ -50,4 +51,4 @@ __used __section(__versions) = {
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "2F850A04B5F242DAA5C0315");
+MODULE_INFO(srcversion, "EB49F493328FE45D17EF5BD");
