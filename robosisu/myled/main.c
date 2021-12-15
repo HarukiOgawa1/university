@@ -6,6 +6,8 @@
 #include<linux/io.h>
 #include<linux/delay.h>
 
+#define num 4
+
 MODULE_AUTHOR("Ryuichi Ueda");
 MODULE_DESCRIPTION("driver for LED control");
 MODULE_LICENSE("GPL");
@@ -16,6 +18,8 @@ static struct cdev cdv;
 static struct class *cls = NULL;
 static volatile u32 *gpio_base = NULL;
 
+static int list[num] = {24, 25, 26, 12};
+
 static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_t* pos)
 {
 	char c;
@@ -23,16 +27,31 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 	if(copy_from_user(&c,buf,sizeof(char)))
 		return -EFAULT;
 	//printk(KERN_INFO "receive %c\n",c);
+	//if(c == '0'){
+	//	gpio_base[10] = 1 << list[0];
+	//	gpio_base[10] = 1 << list[1];
+	//}
 	if(c == '0'){
-		gpio_base[10] = 1 << 25;
-	}
-	else if(c == '1'){
-		for(i=0;i<5;i++){
-			msleep(300);
-			gpio_base[7] = 1 << 25;
-			msleep(300);
-			gpio_base[10] = 1 << 25;	
+		for(i=30;i>10;i--){
+			msleep(3*i);
+			gpio_base[7] = 1 << list[0];
+			gpio_base[7] = 1 << list[1];
+			gpio_base[7] = 1 << list[2];
+			msleep(3*i);
+			gpio_base[10] = 1 << list[0];
+			gpio_base[10] = 1 << list[1];	
+			gpio_base[10] = 1 << list[2];	
 		}
+		msleep(800);
+		for(i=0;i<3;i++){
+			gpio_base[7] = 1 << list[0];
+			msleep(700);
+			gpio_base[10] = 1 << list[0];
+			msleep(600);
+		}
+		gpio_base[7] = 1 << list[0];
+		msleep(700);
+		gpio_base[10] = 1 << list[0];
 	}
 
 	return 1;
@@ -45,7 +64,7 @@ static struct file_operations led_fops = {
 
 static int __init init_mod(void)
 {
-	int retval;
+	int retval,i;
 	retval = alloc_chrdev_region(&dev, 0, 1, "main");
 	if(retval < 0){
 		printk(KERN_ERR "alloc_chrdev_region failed.\n");
@@ -68,12 +87,14 @@ static int __init init_mod(void)
 	
 	gpio_base = ioremap_nocache(0xfe200000, 0xA0);
 	
-	const u32 led = 25;
-	const u32 index = led/10;
-	const u32 shift = (led%10)*3;
-	const u32 mask = ~(0x7 << shift);
-	gpio_base[index] = (gpio_base[index] & mask) | (0x1 << shift);
-		
+	for(i=0;i< num;i++){
+		const u32 led = list[i];
+		const u32 index = led/10;
+		const u32 shift = (led%10)*3;
+		const u32 mask = ~(0x7 << shift);
+		gpio_base[index] = (gpio_base[index] & mask) | (0x1 << shift);
+	}		
+
 	return  0;
 }
 
