@@ -27,10 +27,6 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 	if(copy_from_user(&c,buf,sizeof(char)))
 		return -EFAULT;
 	//printk(KERN_INFO "receive %c\n",c);
-	//if(c == '0'){
-	//	gpio_base[10] = 1 << list[0];
-	//	gpio_base[10] = 1 << list[1];
-	//}
 	if(c == '0'){
 		for(i=30;i>10;i--){
 			msleep(3*i);
@@ -53,7 +49,66 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 		msleep(700);
 		gpio_base[10] = 1 << list[0];
 	}
-
+	if(c == '1'){
+		for(i=30;i>10;i--){
+			msleep(3*i);
+			gpio_base[7] = 1 << list[0];
+			gpio_base[7] = 1 << list[1];
+			gpio_base[7] = 1 << list[2];
+			msleep(3*i);
+			gpio_base[10] = 1 << list[0];
+			gpio_base[10] = 1 << list[1];
+			gpio_base[10] = 1 << list[2];
+		}
+		msleep(800);
+		for(i=0;i<3;i++){
+			gpio_base[7] = 1 << list[1];
+			msleep(700);
+			gpio_base[10] = 1 << list[1];
+			msleep(600);
+		}
+		gpio_base[7] = 1 << list[1];
+		msleep(700);
+		gpio_base[10] = 1 << list[1];
+	}	
+	
+	if(c == '2'){
+		for(i=30;i>10;i--){
+			msleep(3*i);
+			gpio_base[7] = 1 << list[0];
+			gpio_base[7] = 1 << list[1];
+			gpio_base[7] = 1 << list[2];
+			msleep(3*i);
+			gpio_base[10] = 1 << list[0];
+			gpio_base[10] = 1 << list[1];
+			gpio_base[10] = 1 << list[2];
+		}
+		msleep(800);
+		for(i=0;i<3;i++){
+			gpio_base[7] = 1 << list[2];
+			msleep(700);
+			gpio_base[10] = 1 << list[2];
+			msleep(600);
+		}
+		gpio_base[7] = 1 << list[2];
+		msleep(700);
+		gpio_base[10] = 1 << list[2];
+	}else{
+		for(i=0;i<3;i++){
+			gpio_base[7] = 1 << list[0];
+			msleep(30);
+			gpio_base[10] = 1 << list[0];
+			msleep(30);
+			gpio_base[7] = 1 << list[1];
+			msleep(30);
+			gpio_base[10] = 1 << list[1];
+			msleep(30);
+			gpio_base[7] = 1 << list[2];
+			msleep(30);
+			gpio_base[10] = 1 << list[2];
+			msleep(30);
+		}
+	}
 	return 1;
 }
 
