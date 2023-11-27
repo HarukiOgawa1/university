@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<robot name="Roid1">
+
+  <!--base link 基準点-->
+  <link name="base_link">
+  </link>
+  <!--ここでbase_to_chestのジョイント座標は(0,0,0) 原点0-->
+
+  <!--0.base to chest 基準点からの胸の位置(赤点A)-->
+  <joint name="base_to_chest" type="fixed">
+    <parent link="base_link"/>
+    <child link="chest"/>
+    <origin xyz="0 0 0.3"/>
+  </joint>
+  <link name="chest">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <origin xyz="0 0 0"/>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!--1.base to shoulder_p 肩ピッチ-->
+  <joint name="base_to_shoulder_p" type="revolute">
+    <parent link="chest"/><!--ジョイントの親リンク-->
+    <child link="shoulder_p"/><!--ジョイントの子リンク-->
+    <axis xyz="0 1 0"/><!--回転軸　軸中心に回転する-->
+    <origin xyz="0 -0.015 0"/><!--親リンク座標から見た相対的な座標で子リンクの位置を示す-->
+    <limit lower="-1.5" upper="1.5" effort="0" velocity="0"/><!--関節の可動範囲　effort=制御努力　velocity=速度制限-->
+  </joint>
+  <link name="shoulder_p">
+    <visual>
+      <geometry><!--形状の指定-->
+        <box size="0.03 0.03 0.03"/><!--box=直方体-->
+      </geometry>
+      <origin xyz="0 -0.015 0"/><!--子リンク座標から見た相対的な位置に視覚的な表現のボックスを配置する-->
+      <material name="blue"><!--マテリアルの指定-->
+        <color rgba="0.1 0.1 1.0 1"/><!--色をRGBA形式の指定　赤緑青透明度-->
+      </material>
+    </visual>
+  </link>
+  
+  <!--2.shoulder_p to shoulder_y 肩ヨー-->
+  <joint name="shoulder_p_to_shoulder_y" type="revolute">
+    <parent link="shoulder_p"/>
+    <child link="shoulder_y"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 -0.06 0"/>
+    <limit lower="-1.5" upper="1.5" effort="0" velocity="0"/>
+  </joint>
+  <link name="shoulder_y">
+    <visual>
+      <geometry>
+        <box size="0.03 0.06 0.03"/>
+      </geometry>
+      <origin xyz="0 -0.01 0"/>
+      <material name="yellow">
+        <color rgba="1.0 1.0 0.1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!--3.shoulder_y_to_elbow_y ヨー-->
+  <joint name="shoulder_y_to_elbow_y" type="revolute">
+    <parent link="shoulder_y"/>
+    <child link="elbow_y"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 -0.06 0"/>
+    <limit lower="-1.5" upper="1.5" effort="0" velocity="0"/>
+  </joint>
+  <link name="elbow_y">
+    <visual>
+      <geometry>
+        <box size="0.03 0.06 0.03"/>
+      </geometry>
+      <origin xyz="0 -0.02 0"/>
+      <material name="green">
+        <color rgba="0.1 1.0 0.1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!--4.elbow_y_to_hand_y-->
+  <joint name="elbow_y_to_hand_y" type="revolute">
+    <parent link="elbow_y"/>
+    <child link="hand_y"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 -0.035 0"/>
+    <limit lower="-1.5" upper="1.5" effort="0" velocity="0"/>
+  </joint>
+  <link name="hand_y">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <origin xyz="0 -0.035 0"/>
+      <material name="purple">
+        <color rgba="1.0 0.1 1.0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!--5.hand_y_to_hand_r-->
+  <joint name="hand_y_to_hand_r" type="revolute">
+    <parent link="hand_y"/>
+    <child link="hand_r"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 -0.035 0"/>
+    <limit lower="-1.5" upper="1.5" effort="0" velocity="0"/>
+  </joint>
+  <link name="hand_r">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <origin xyz="0 -0.035 0"/>
+      <material name="red">
+        <color rgba="1.0 0.1 0.1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!--6.hand_y_to_hand_p-->
+  <joint name="hand_y_to_hand_p" type="revolute">
+    <parent link="hand_r"/>
+    <child link="hand_p"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 -0.035 0"/>
+    <limit lower="-1.5" upper="1.5" effort="0" velocity="0"/>
+  </joint>
+  <link name="hand_p">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <origin xyz="0 -0.035 0"/>
+      <material name="bule">
+        <color rgba="0.1 0.1 1.0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+	<!--7.hand_p_to_hand_grab-->
+  <joint name="hand_grab" type="fixed">
+    <parent link="hand_p"/>
+    <child link="hand_grab"/>
+    <origin xyz="0 -0.035 0"/>
+  </joint>
+  <link name="hand_grab">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <origin xyz="0 -0.035 0"/>
+      <material name="green">
+        <color rgba="0.1 1.0 0.0 1"/>
+      </material>
+    </visual>
+  </link>
+
+</robot>
